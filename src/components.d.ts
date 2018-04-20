@@ -23,77 +23,6 @@ declare global {
   interface HTMLAttributes {}
 }
 
-import '@stencil/router';
-
-import {
-  MatchResults,
-} from '@stencil/router';
-
-declare global {
-
-  namespace StencilComponents {
-    interface AppHome {
-
-    }
-  }
-
-  interface HTMLAppHomeElement extends StencilComponents.AppHome, HTMLStencilElement {}
-
-  var HTMLAppHomeElement: {
-    prototype: HTMLAppHomeElement;
-    new (): HTMLAppHomeElement;
-  };
-  interface HTMLElementTagNameMap {
-    'app-home': HTMLAppHomeElement;
-  }
-  interface ElementTagNameMap {
-    'app-home': HTMLAppHomeElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'app-home': JSXElements.AppHomeAttributes;
-    }
-  }
-  namespace JSXElements {
-    export interface AppHomeAttributes extends HTMLAttributes {
-
-    }
-  }
-}
-
-
-declare global {
-
-  namespace StencilComponents {
-    interface AppProfile {
-      'match': MatchResults;
-    }
-  }
-
-  interface HTMLAppProfileElement extends StencilComponents.AppProfile, HTMLStencilElement {}
-
-  var HTMLAppProfileElement: {
-    prototype: HTMLAppProfileElement;
-    new (): HTMLAppProfileElement;
-  };
-  interface HTMLElementTagNameMap {
-    'app-profile': HTMLAppProfileElement;
-  }
-  interface ElementTagNameMap {
-    'app-profile': HTMLAppProfileElement;
-  }
-  namespace JSX {
-    interface IntrinsicElements {
-      'app-profile': JSXElements.AppProfileAttributes;
-    }
-  }
-  namespace JSXElements {
-    export interface AppProfileAttributes extends HTMLAttributes {
-      'match'?: MatchResults;
-    }
-  }
-}
-
 
 declare global {
 
@@ -122,6 +51,79 @@ declare global {
   }
   namespace JSXElements {
     export interface MyAppAttributes extends HTMLAttributes {
+
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface TodoItem {
+      'done': boolean;
+      'index': number;
+      'name': string;
+    }
+  }
+
+  interface HTMLTodoItemElement extends StencilComponents.TodoItem, HTMLStencilElement {}
+
+  var HTMLTodoItemElement: {
+    prototype: HTMLTodoItemElement;
+    new (): HTMLTodoItemElement;
+  };
+  interface HTMLElementTagNameMap {
+    'todo-item': HTMLTodoItemElement;
+  }
+  interface ElementTagNameMap {
+    'todo-item': HTMLTodoItemElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'todo-item': JSXElements.TodoItemAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface TodoItemAttributes extends HTMLAttributes {
+      'done'?: boolean;
+      'index'?: number;
+      'name'?: string;
+      'onItemChanged'?: (event: CustomEvent<any>) => void;
+      'onItemRemoved'?: (event: CustomEvent<number>) => void;
+      'onItemToggled'?: (event: CustomEvent<number>) => void;
+    }
+  }
+}
+
+
+declare global {
+
+  namespace StencilComponents {
+    interface TodoList {
+
+    }
+  }
+
+  interface HTMLTodoListElement extends StencilComponents.TodoList, HTMLStencilElement {}
+
+  var HTMLTodoListElement: {
+    prototype: HTMLTodoListElement;
+    new (): HTMLTodoListElement;
+  };
+  interface HTMLElementTagNameMap {
+    'todo-list': HTMLTodoListElement;
+  }
+  interface ElementTagNameMap {
+    'todo-list': HTMLTodoListElement;
+  }
+  namespace JSX {
+    interface IntrinsicElements {
+      'todo-list': JSXElements.TodoListAttributes;
+    }
+  }
+  namespace JSXElements {
+    export interface TodoListAttributes extends HTMLAttributes {
 
     }
   }
