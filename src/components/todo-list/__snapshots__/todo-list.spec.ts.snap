@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`todo-list rendering should render with empty list 1`] = `
+exports[`todo-list rendering should do deep rendering 1`] = `
 <todo-list
   class="hydrated"
 >
@@ -17,13 +17,68 @@ exports[`todo-list rendering should render with empty list 1`] = `
         class="todo-list"
       >
         <todo-item
-          done="true"
-          name="Milk the cow"
-        />
+          class="hydrated"
+        >
+          <!---->
+          <li>
+            <div
+              class="view"
+            >
+              <input
+                class="toggle"
+                type="checkbox"
+              />
+              <label>
+                Item 1
+              </label>
+              <button
+                class="destroy"
+              />
+            </div>
+          </li>
+        </todo-item>
         <todo-item
-          done="false"
-          name="Buy milk"
-        />
+          class="hydrated"
+        >
+          <!---->
+          <li>
+            <div
+              class="view"
+            >
+              <input
+                class="toggle"
+                type="checkbox"
+              />
+              <label>
+                Item 2
+              </label>
+              <button
+                class="destroy"
+              />
+            </div>
+          </li>
+        </todo-item>
+        <todo-item
+          class="hydrated"
+        >
+          <!---->
+          <li>
+            <div
+              class="view"
+            >
+              <input
+                class="toggle"
+                type="checkbox"
+              />
+              <label>
+                Item 3
+              </label>
+              <button
+                class="destroy"
+              />
+            </div>
+          </li>
+        </todo-item>
       </ul>
     </section>
     <footer
@@ -33,7 +88,7 @@ exports[`todo-list rendering should render with empty list 1`] = `
         class="todo-count"
       >
         <strong>
-           1 Left
+           2 Left
         </strong>
          
       </span>
@@ -42,7 +97,7 @@ exports[`todo-list rendering should render with empty list 1`] = `
 </todo-list>
 `;
 
-exports[`todo-list rendering should render with items list 1`] = `
+exports[`todo-list rendering should do shallow rendering 1`] = `
 <todo-list
   class="hydrated"
 >
@@ -59,12 +114,16 @@ exports[`todo-list rendering should render with items list 1`] = `
         class="todo-list"
       >
         <todo-item
-          done="true"
-          name="Milk the cow"
+          done="false"
+          name="Item 1"
         />
         <todo-item
           done="false"
-          name="Buy milk"
+          name="Item 2"
+        />
+        <todo-item
+          done="true"
+          name="Item 3"
         />
       </ul>
     </section>
@@ -75,7 +134,7 @@ exports[`todo-list rendering should render with items list 1`] = `
         class="todo-count"
       >
         <strong>
-           1 Left
+           2 Left
         </strong>
          
       </span>
