@@ -1,5 +1,9 @@
 import { Component, Prop, Event, EventEmitter, State } from '@stencil/core';
 
+export interface ITodoItem{
+    name: string;
+    done?: boolean;
+}
 @Component({
   tag: 'todo-item',
   styleUrl: 'todo-item.css'
@@ -9,7 +13,6 @@ export class TodoItem {
   
   @Prop() name: string; 
   @Prop() done: boolean;
-  @Prop() index: number;
 
   @State() editMode = false;
 
@@ -17,41 +20,44 @@ export class TodoItem {
   @Event() itemRemoved: EventEmitter<number>;
   @Event() itemToggled: EventEmitter<number>;
 
-  emitItem() {
-      this.itemChanged.emit({
-        index: this.index,
-        name: this.name,
-        done: this.done
-      });
-  }
-  onInputChanged(ev) {
-    console.log('Value', ev.value)
-    this.itemChanged.emit({index: this.index, name: ev.value});
-  }
-
   toggleCompletion() {
-    this.itemToggled.emit(this.index);    
+    this.itemToggled.emit();    
   }
 
   remove() {
-    this.itemRemoved.emit(this.index);
+    this.itemRemoved.emit();
   }
-  edit () {
+  onEdit () {
+    this.editMode = true
+  }
 
-  }
+  onBlur() {
+    this.editMode = false;
+  } 
+  onEditDone(ev) {
+    if (ev.target.value ) {
+        this.itemChanged.emit(ev.target.value);
+    }        
+    this.editMode = false;
+}
+
   render() {
     return (
       <li>
-        <div class="view">
-            <input class="toggle" type="checkbox" onClick={() => this.toggleCompletion()} checked={this.done}/>
-            <label onClick={() => this.edit()}>{this.name}</label>
-            <button class="destroy" onClick={() =>this.remove()}></button>
-		</div>
-        <input class="edit" type="text"
+        {this.editMode ? 
+            <input class="edit" type="text"
             placeholder="New Todo"
             value={this.name}
-            onInput={() => this.onInputChanged}
+            onChange={ev => this.onEditDone(ev)}
+            onBlur={() => this.onBlur()}
         />
+        :
+        <div class="view" >
+            <input class="toggle" type="checkbox" onClick={() => this.toggleCompletion()} checked={this.done}/>
+            <label onClick={() => this.onEdit()}>{this.name}</label>
+            <button class="destroy" onClick={() =>this.remove()}></button>
+        </div>
+}        
       </li>
     );
   }

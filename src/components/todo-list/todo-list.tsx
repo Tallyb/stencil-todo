@@ -1,4 +1,5 @@
-import { Component, State } from '@stencil/core';
+import { Component, State, Event, EventEmitter } from '@stencil/core';
+import { ItemsService } from '../../services/items';
 
 @Component({
   tag: 'todo-list',
@@ -6,16 +7,24 @@ import { Component, State } from '@stencil/core';
 })
 export class TodoList {
 
-    @State() items = [
-        {name: 'Milk the cow', done: true},
-        {name: 'Buy milk', done: false}
-    ]; 
+    @Event() todoItemsChanged: EventEmitter<any>;
+    
+    @State() items = []; 
+
+    private itemsService = new ItemsService(); 
+
+    async componentWillLoad (){
+        this.items = await this.itemsService.get();
+    }
 
     changeItem(index, value) {
-        this.items[index] = {
+        this.items = [...this.items.slice(0, index),
+        {
             name: value, 
             done: false
-        };
+        },
+        ... this.items.slice(index + 1)];
+        this.todoItemsChanged.emit(this.items);
     }
 
     removeItem(index) {
@@ -23,18 +32,23 @@ export class TodoList {
             ...this.items.slice(0, index),
             ...this.items.slice(index + 1)
         ];
+        this.todoItemsChanged.emit(this.items);
     }
 
     toggleItem(index) {
-        this.items[index] = {
-            name: this.items[index].name, 
-            done: !this.items[index].done
-        };
-        console.log('TOGGLE', this.items);
+        this.items = [
+            ...this.items.slice(0, index),
+            {
+                name: this.items[index].name, 
+                done: !this.items[index].done
+            },
+            ...this.items.slice(index + 1)
+        ];
+        this.todoItemsChanged.emit(this.items);
     }
 
     getRemainingItems() {
-        return this.items.filter( i => i.done).length;
+        return this.items.filter( i => !i.done).length;
     }
 
     addItem(ev) {
@@ -50,7 +64,7 @@ export class TodoList {
                 <ul class="todo-list">
                     {this.items.map((i, k) =>
                         <todo-item name={i.name} done={i.done}
-                            onItemChanged={(v) => this.changeItem(k, v)}
+                            onItemChanged={ ev => this.changeItem(k, ev.detail)}
                             onItemRemoved={() => this.removeItem(k)}
                             onItemToggled={() => this.toggleItem(k)}
                         ></todo-item>

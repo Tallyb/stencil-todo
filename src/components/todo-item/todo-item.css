@@ -26,10 +26,6 @@ li.editing .edit {
 	margin: 0 0 0 43px;
 }
 
-li.editing .view {
-	display: none;
-}
-
 li .toggle {
 	text-align: center;
 	width: 40px;
@@ -100,10 +96,6 @@ li .destroy:after {
 
 li:hover .destroy {
 	display: block;
-}
-
-li .edit {
-	display: none;
 }
 
 li.editing:last-child {

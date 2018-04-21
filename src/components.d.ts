@@ -62,7 +62,6 @@ declare global {
   namespace StencilComponents {
     interface TodoItem {
       'done': boolean;
-      'index': number;
       'name': string;
     }
   }
@@ -87,7 +86,6 @@ declare global {
   namespace JSXElements {
     export interface TodoItemAttributes extends HTMLAttributes {
       'done'?: boolean;
-      'index'?: number;
       'name'?: string;
       'onItemChanged'?: (event: CustomEvent<any>) => void;
       'onItemRemoved'?: (event: CustomEvent<number>) => void;
@@ -124,7 +122,7 @@ declare global {
   }
   namespace JSXElements {
     export interface TodoListAttributes extends HTMLAttributes {
-
+      'onTodoItemsChanged'?: (event: CustomEvent<any>) => void;
     }
   }
 }

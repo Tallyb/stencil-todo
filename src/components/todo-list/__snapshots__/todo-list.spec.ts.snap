@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`todo-list rendering should render with empty list 1`] = `
+<todo-list
+  class="hydrated"
+>
+  <!---->
+  <div>
+    <input
+      class="new-todo"
+      placeholder="What needs to be done?"
+    />
+    <section
+      class="main"
+    >
+      <ul
+        class="todo-list"
+      >
+        <todo-item
+          done="true"
+          name="Milk the cow"
+        />
+        <todo-item
+          done="false"
+          name="Buy milk"
+        />
+      </ul>
+    </section>
+    <footer
+      class="footer"
+    >
+      <span
+        class="todo-count"
+      >
+        <strong>
+           1 Left
+        </strong>
+         
+      </span>
+    </footer>
+  </div>
+</todo-list>
+`;
+
+exports[`todo-list rendering should render with items list 1`] = `
+<todo-list
+  class="hydrated"
+>
+  <!---->
+  <div>
+    <input
+      class="new-todo"
+      placeholder="What needs to be done?"
+    />
+    <section
+      class="main"
+    >
+      <ul
+        class="todo-list"
+      >
+        <todo-item
+          done="true"
+          name="Milk the cow"
+        />
+        <todo-item
+          done="false"
+          name="Buy milk"
+        />
+      </ul>
+    </section>
+    <footer
+      class="footer"
+    >
+      <span
+        class="todo-count"
+      >
+        <strong>
+           1 Left
+        </strong>
+         
+      </span>
+    </footer>
+  </div>
+</todo-list>
+`;
