@@ -1,4 +1,4 @@
-import { Component, State, Event, EventEmitter } from '@stencil/core';
+import { Component, State, Event, EventEmitter, Prop } from '@stencil/core';
 import { ItemsService } from '../../services/items';
 
 @Component({
@@ -9,12 +9,14 @@ export class TodoList {
 
     @Event() todoItemsChanged: EventEmitter<any>;
     
-    @State() items = []; 
+    @Prop({mutable: true}) items = []; 
 
     private itemsService = new ItemsService(); 
 
     async componentWillLoad (){
-        this.items = await this.itemsService.get();
+        if(!this.items) {
+            this.items =  await this.itemsService.get()
+        }
     }
 
     changeItem(index, value) {

@@ -9,9 +9,9 @@ describe('todo-list', () => {
     });
 
     const ITEMS = [
-        { name: 'an item', done: false},
-        { name: 'an item', done: false},
-        { name: 'an item', done: true}
+        { name: 'Item 1', done: false},
+        { name: 'Item 2', done: false},
+        { name: 'Item 3', done: true}
     ];
 
     describe('remaining items', () => {
@@ -27,8 +27,28 @@ describe('todo-list', () => {
             let comp = new TodoList();
             comp.items =ITEMS;
             expect(comp.getRemainingItems()).toEqual(2);
-        });
+        });        
         
+    });
+
+    describe('events payload', () => {
+        it('should remove item from list on remove', () => {
+    
+            let comp = new TodoList();
+            comp.items = ITEMS;
+            const changedSpy = jest.fn();
+            comp.todoItemsChanged = {
+                emit: changedSpy
+            };
+            //const changedSpy = jest.spyOn(comp.todoItemsChanged, 'emit');
+            comp.removeItem(1);
+            expect(changedSpy).toHaveBeenCalledWith([
+                { name: 'Item 1', done: false},
+                { name: 'Item 3', done: true}
+            ]);
+
+
+        });
     });
 
     describe('rendering', () => {
@@ -56,22 +76,33 @@ describe('todo-list', () => {
 
     describe('items editing', () => {
         let element;
-        jest.mock('../../services/items', () => ({
-                get: jest.fn(() => {
-                    return Promise.resolve(ITEMS)
-                })
-
-        }));
-
         beforeEach( async () => {
             element = await win.load({
                 components: [TodoList, TodoItem],
                 html: '<todo-list></todo-list>'
             });
+            element.items = ITEMS;
             win.flush();
         });
-        fit('should edit an item', async () => {
-            await console.log ('ITEMS', element)
+        it('should toggle second item', async () => {
+            let eventSpy = jest.fn(); 
+            win.document.addEventListener('todoItemsChanged', eventSpy);
+            let toggles = element.querySelectorAll('.toggle');
+            toggles[1].click();
+            win.flush();
+            expect(eventSpy).toHaveBeenCalled();
+            expect(eventSpy.mock.calls[0][0].detail[2].done).toEqual(true);
         });
+
+        fit('should toggle second item', async () => {
+            let eventSpy = jest.fn(); 
+            win.document.addEventListener('todoItemsChanged', eventSpy);
+            let toggles = element.querySelectorAll('.toggle');
+            toggles[1].click();
+            win.flush();
+            expect(eventSpy).toHaveBeenCalled();
+            expect(eventSpy.mock.calls[0][0].detail[2].done).toEqual(true);
+        });
+        
     });
 });

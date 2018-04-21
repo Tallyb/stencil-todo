@@ -99,7 +99,7 @@ declare global {
 
   namespace StencilComponents {
     interface TodoList {
-
+      'items': any;
     }
   }
 
@@ -122,6 +122,7 @@ declare global {
   }
   namespace JSXElements {
     export interface TodoListAttributes extends HTMLAttributes {
+      'items'?: any;
       'onTodoItemsChanged'?: (event: CustomEvent<any>) => void;
     }
   }
