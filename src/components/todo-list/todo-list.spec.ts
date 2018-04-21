@@ -94,14 +94,24 @@ describe('todo-list', () => {
             expect(eventSpy.mock.calls[0][0].detail[2].done).toEqual(true);
         });
 
-        fit('should toggle second item', async () => {
+        fit('should update second item', async () => {
             let eventSpy = jest.fn(); 
             win.document.addEventListener('todoItemsChanged', eventSpy);
-            let toggles = element.querySelectorAll('.toggle');
-            toggles[1].click();
+            let todo = element.querySelectorAll('todo-item')[1];
+            todo.querySelector('label').click();
             win.flush();
+            // create an input event
+            let change = win.document.createEvent('Event');
+            change.initEvent('change', true, false);
+            // Set value on the input element & dispatch the event
+            let value = 'New Value';
+            let input = element.querySelector('.edit');
+            input.value = value;
+            input.dispatchEvent(change);
+            win.flush();
+            // expectations
             expect(eventSpy).toHaveBeenCalled();
-            expect(eventSpy.mock.calls[0][0].detail[2].done).toEqual(true);
+            expect(eventSpy.mock.calls[0][0].detail[1].name).toEqual(value);
         });
         
     });
